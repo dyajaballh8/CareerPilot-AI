@@ -1,0 +1,79 @@
+# ===========================
+# Python / Backend
+# ===========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+venv/
+env/
+.venv/
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ===========================
+# Node / Frontend
+# ===========================
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.next/
+.npm
+*.tgz
+
+# ===========================
+# Environment Variables
+# ===========================
+.env
+.env.local
+.env.production
+.env.development
+backend/.env
+frontend/.env
+
+# ===========================
+# IDE / Editor
+# ===========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ===========================
+# Database
+# ===========================
+*.db
+*.sqlite3
+
+# ===========================
+# Logs
+# ===========================
+*.log
+logs/
+
+# ===========================
+# Uploads (user CVs)
+# ===========================
+backend/uploads/
+uploads/
+
+# ===========================
+# Testing
+# ===========================
+.coverage
+htmlcov/
+.pytest_cache/
+coverage.xml
+
+# ===========================
+# Misc
+# ===========================
+*.bak
+*.tmp
+.gemini/
