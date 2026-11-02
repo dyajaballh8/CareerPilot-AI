@@ -1,1 +1,1 @@
-# Core configuration and security
+# app.core – configuration, database, and security utilities

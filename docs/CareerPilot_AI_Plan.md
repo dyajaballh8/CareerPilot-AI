@@ -10,7 +10,7 @@
 | Item | Details |
 |------|---------|
 | **Deadline** | 5 أسابيع (شهر وأسبوع) |
-| **Team Size** | 3 أعضاء |
+| **Architecture** | Full-Stack AI Platform (FastAPI + SPA + Gemini) |
 | **Methodology** | Agile — Weekly Sprints |
 | **Sprint Duration** | أسبوع واحد لكل Sprint |
 | **Total Sprints** | 5 Sprints |
@@ -32,16 +32,16 @@ flowchart LR
 
 ---
 
-## 👥 Team Structure (3 Members)
+## 🏗️ System Components & Architecture Layers
 
-| Member | Role | Responsibilities |
-|--------|------|-----------------|
-| **Member A** | **Frontend Developer** | React.js, Tailwind CSS, UI/UX, pages, responsive design |
-| **Member B** | **Backend Developer** | FastAPI, PostgreSQL, SQLAlchemy, Auth, APIs, deployment |
-| **Member C** | **AI/ML & Integration** | Gemini API, CV parsing, matching engine, interview engine, external APIs (Adzuna, Greenhouse, Lever) |
+| Layer | Component | Core Responsibilities |
+|-------|-----------|----------------------|
+| **Frontend Layer** | **Single Page App (SPA)** | Modern JavaScript, HTML5/CSS3, UI/UX, interactive views, responsive design |
+| **Backend Layer** | **FastAPI Services** | REST APIs, PostgreSQL & SQLAlchemy models, Auth & JWT, file storage, deployment |
+| **AI & Integration** | **Gemini & Data Pipeline** | Gemini API, CV parsing, job matching engine, interview simulator, external APIs (Adzuna, Coursera, Udemy, etc.) |
 
 > [!IMPORTANT]
-> كل عضو مسؤول عن domain بتاعه، لكن لازم الكل يكونوا فاهمين الـ API Contracts عشان الربط يكون سلس. الـ API contracts بتتحدد في Sprint Planning كل أسبوع.
+> الربط بين الطبقات المختلفة يتم عبر **API Contracts** موحدة وثابتة تضمن التكامل السلس بين الواجهة والباك إند وخدمات الذكاء الاصطناعي.
 
 ---
 
@@ -80,14 +80,12 @@ flowchart TD
 
 ```
 📁 careerpilot-ai/
-├── 📁 frontend/          # React.js + Tailwind
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── hooks/
-│   │   ├── services/     # API client layer
-│   │   └── store/
-│   └── package.json
+├── 📁 frontend/          # Single Page Application (HTML5 / Modern JS / CSS3)
+│   ├── index.html        # App entry & shell
+│   └── src/
+│       ├── app.js        # SPA Router, state management & reactive views
+│       ├── services/     # API client layer (auth, courses, resumes)
+│       └── styles/       # Responsive design system & styles
 ├── 📁 backend/           # FastAPI + Python
 │   ├── app/
 │   │   ├── api/          # Route handlers
@@ -121,26 +119,26 @@ flowchart TD
 ### Sprint Goal
 > تأسيس المشروع بالكامل: project setup, database, authentication, user profiles, و بداية الـ Course Explorer.
 
-| Task | Owner | Priority | Story Points |
-|------|-------|----------|-------------|
-| SRS Document + ERD + System Architecture | **Team** | 🔴 Critical | 5 |
-| UI/UX Wireframes (Figma) لكل الصفحات | **A** | 🔴 Critical | 5 |
-| Git repo + project scaffold (frontend + backend) | **B** | 🔴 Critical | 3 |
-| PostgreSQL setup + Alembic migrations | **B** | 🔴 Critical | 3 |
-| Database models: `Users`, `UserProfiles`, `Courses`, `CourseCategories`, `SavedCourses` | **B** | 🔴 Critical | 5 |
-| Auth system: Register, Login, JWT (access + refresh) | **B** | 🔴 Critical | 5 |
-| Password hashing (Bcrypt) + auth middleware | **B** | 🟡 High | 3 |
-| Frontend: Login/Register pages + auth context + protected routes | **A** | 🔴 Critical | 5 |
-| Frontend: Sidebar layout + Dashboard skeleton | **A** | 🟡 High | 3 |
-| Course data source research + API keys setup | **C** | 🟡 High | 3 |
-| Course API integration (fetch + normalize + store) | **C** | 🟡 High | 5 |
-| Gemini API key setup + basic service layer scaffold | **C** | 🟢 Medium | 2 |
+| Task | Category | Priority | Story Points |
+|------|----------|----------|-------------|
+| SRS Document + ERD + System Architecture | **Architecture** | 🔴 Critical | 5 |
+| UI/UX Wireframes لكل الصفحات | **Frontend** | 🔴 Critical | 5 |
+| Git repo + project scaffold (frontend + backend) | **Backend** | 🔴 Critical | 3 |
+| PostgreSQL setup + Alembic migrations | **Backend** | 🔴 Critical | 3 |
+| Database models: `Users`, `UserProfiles`, `Courses`, `CourseCategories`, `SavedCourses` | **Backend** | 🔴 Critical | 5 |
+| Auth system: Register, Login, JWT (access + refresh) | **Backend** | 🔴 Critical | 5 |
+| Password hashing (Bcrypt) + auth middleware | **Backend** | 🟡 High | 3 |
+| Frontend: Login/Register pages + auth context + protected routes | **Frontend** | 🔴 Critical | 5 |
+| Frontend: Sidebar layout + Dashboard skeleton | **Frontend** | 🟡 High | 3 |
+| Course data source research + API keys setup | **Data Pipeline** | 🟡 High | 3 |
+| Course API integration (fetch + normalize + store) | **Data Pipeline** | 🟡 High | 5 |
+| Gemini API key setup + basic service layer scaffold | **AI & Integration** | 🟢 Medium | 2 |
 
 ```mermaid
 sequenceDiagram
     participant U as User
-    participant F as Frontend (A)
-    participant B as Backend (B)
+    participant F as Frontend
+    participant B as Backend
     participant DB as PostgreSQL
 
     U->>F: Register (email, password, name)
@@ -174,21 +172,21 @@ sequenceDiagram
 ### Sprint Goal
 > إكمال Course Explorer بالكامل + Resume Upload + Dashboard أساسي. بنهاية الـ Sprint ده، المستخدم يقدر يبحث عن كورسات ويرفع CV.
 
-| Task | Owner | Priority | Story Points |
-|------|-------|----------|-------------|
-| Course Search API: `GET /api/courses/search` مع filters | **B** | 🔴 Critical | 5 |
-| Course Details API: `GET /api/courses/{id}` | **B** | 🟡 High | 2 |
-| Save/Unsave Course: `POST/DELETE /api/courses/{id}/save` | **B** | 🟡 High | 2 |
-| Resume upload API: validation, file storage, text extraction (PyMuPDF + python-docx) | **B** | 🔴 Critical | 5 |
-| Database models: `Resumes`, `ResumeSkills`, `Skills`, `SavedCourses` | **B** | 🔴 Critical | 3 |
-| Frontend: Explore Courses page (search bar, filters, course cards, pagination) | **A** | 🔴 Critical | 5 |
-| Frontend: Course Details page + Save button | **A** | 🟡 High | 3 |
-| Frontend: My Resume page (upload, preview, delete) | **A** | 🔴 Critical | 5 |
-| Frontend: Dashboard page (welcome, profile info, resume status) | **A** | 🟡 High | 3 |
-| Frontend: Saved Courses page | **A** | 🟢 Medium | 2 |
-| Course data: add more sources + data normalization pipeline | **C** | 🟡 High | 5 |
-| Gemini service layer: error handling, rate limiting, retry logic | **C** | 🟡 High | 5 |
-| Database models for Phase 2 prep: `Jobs`, `JobSkills`, `JobSources` | **C** | 🟢 Medium | 3 |
+| Task | Category | Priority | Story Points |
+|------|----------|----------|-------------|
+| Course Search API: `GET /api/courses/search` مع filters | **Backend** | 🔴 Critical | 5 |
+| Course Details API: `GET /api/courses/{id}` | **Backend** | 🟡 High | 2 |
+| Save/Unsave Course: `POST/DELETE /api/courses/{id}/save` | **Backend** | 🟡 High | 2 |
+| Resume upload API: validation, file storage, text extraction (PyMuPDF + python-docx) | **Backend** | 🔴 Critical | 5 |
+| Database models: `Resumes`, `ResumeSkills`, `Skills`, `SavedCourses` | **Backend** | 🔴 Critical | 3 |
+| Frontend: Explore Courses page (search bar, filters, course cards, pagination) | **Frontend** | 🔴 Critical | 5 |
+| Frontend: Course Details page + Save button | **Frontend** | 🟡 High | 3 |
+| Frontend: My Resume page (upload, preview, delete) | **Frontend** | 🔴 Critical | 5 |
+| Frontend: Dashboard page (welcome, profile info, resume status) | **Frontend** | 🟡 High | 3 |
+| Frontend: Saved Courses page | **Frontend** | 🟢 Medium | 2 |
+| Course data: add more sources + data normalization pipeline | **Data Pipeline** | 🟡 High | 5 |
+| Gemini service layer: error handling, rate limiting, retry logic | **AI & Integration** | 🟡 High | 5 |
+| Database models for Phase 2 prep: `Jobs`, `JobSkills`, `JobSources` | **Backend** | 🟢 Medium | 3 |
 
 > [!NOTE]
 > في Sprint 2 البحث عن الكورسات هيكون **Traditional Search** (keyword + filters). الـ AI-Powered Natural Language Search هيتضاف في Phase 2.
@@ -239,23 +237,23 @@ flowchart TD
 ### Sprint Goal
 > تشغيل Gemini لتحليل الـ CV + تجميع الوظائف من APIs متعددة + بداية AI Course Search.
 
-| Task | Owner | Priority | Story Points |
-|------|-------|----------|-------------|
-| AI CV Parser: إرسال CV text لـ Gemini → structured JSON | **C** | 🔴 Critical | 5 |
-| Pydantic validation لـ Gemini CV output | **C** | 🔴 Critical | 3 |
-| AI Natural Language Course Search (Gemini → filters → search) | **C** | 🟡 High | 5 |
-| Course summarization + skills extraction via Gemini | **C** | 🟢 Medium | 3 |
-| Adzuna API integration (job search) | **C** | 🔴 Critical | 5 |
-| Greenhouse Job Board API integration | **C** | 🟡 High | 3 |
-| Job Aggregator service: fetch → normalize → deduplicate → store | **B** | 🔴 Critical | 5 |
-| Database: `Jobs`, `JobSkills`, `JobSources`, `SavedJobs`, `JobMatches` tables | **B** | 🔴 Critical | 3 |
-| Job Search API: `GET /api/jobs/search` مع filters | **B** | 🔴 Critical | 5 |
-| Save Job + Application tracking APIs | **B** | 🟡 High | 3 |
-| Background job fetching (scheduled task) | **B** | 🟢 Medium | 3 |
-| Frontend: CV analysis review/edit page | **A** | 🔴 Critical | 5 |
-| Frontend: Find Jobs page (job cards, filters, source badge) | **A** | 🔴 Critical | 5 |
-| Frontend: Job Details page | **A** | 🟡 High | 3 |
-| Frontend: Update Course Search مع AI search option | **A** | 🟡 High | 3 |
+| Task | Category | Priority | Story Points |
+|------|----------|----------|-------------|
+| AI CV Parser: إرسال CV text لـ Gemini → structured JSON | **AI & Integration** | 🔴 Critical | 5 |
+| Pydantic validation لـ Gemini CV output | **AI & Integration** | 🔴 Critical | 3 |
+| AI Natural Language Course Search (Gemini → filters → search) | **AI & Integration** | 🟡 High | 5 |
+| Course summarization + skills extraction via Gemini | **AI & Integration** | 🟢 Medium | 3 |
+| Adzuna API integration (job search) | **Data Pipeline** | 🔴 Critical | 5 |
+| Greenhouse Job Board API integration | **Data Pipeline** | 🟡 High | 3 |
+| Job Aggregator service: fetch → normalize → deduplicate → store | **Backend** | 🔴 Critical | 5 |
+| Database: `Jobs`, `JobSkills`, `JobSources`, `SavedJobs`, `JobMatches` tables | **Backend** | 🔴 Critical | 3 |
+| Job Search API: `GET /api/jobs/search` مع filters | **Backend** | 🔴 Critical | 5 |
+| Save Job + Application tracking APIs | **Backend** | 🟡 High | 3 |
+| Background job fetching (scheduled task) | **Backend** | 🟢 Medium | 3 |
+| Frontend: CV analysis review/edit page | **Frontend** | 🔴 Critical | 5 |
+| Frontend: Find Jobs page (job cards, filters, source badge) | **Frontend** | 🔴 Critical | 5 |
+| Frontend: Job Details page | **Frontend** | 🟡 High | 3 |
+| Frontend: Update Course Search مع AI search option | **Frontend** | 🟡 High | 3 |
 
 ```mermaid
 flowchart TD
@@ -275,9 +273,9 @@ flowchart TD
 ```mermaid
 sequenceDiagram
     participant U as User
-    participant F as Frontend (A)
-    participant B as Backend (B)
-    participant G as Gemini API (C)
+    participant F as Frontend
+    participant B as Backend
+    participant G as Gemini API
     participant DB as PostgreSQL
 
     U->>F: Upload CV
@@ -309,27 +307,27 @@ sequenceDiagram
 ### Sprint Goal
 > تشغيل AI Job Matching Engine + Interview Simulator بالكامل. بنهاية الـ Sprint ده، الـ 3 Features الأساسية هيكونوا شغالين.
 
-| Task | Owner | Priority | Story Points |
-|------|-------|----------|-------------|
-| Skill Matching Algorithm (CV skills vs job requirements) — 40% weight | **C** | 🔴 Critical | 5 |
-| Experience & Projects scoring — 25% weight | **C** | 🔴 Critical | 3 |
-| Semantic Similarity (Sentence Transformers) — 20% weight | **C** | 🟡 High | 5 |
-| Education & Eligibility matching — 15% weight | **C** | 🟡 High | 2 |
-| Match explanation via Gemini (why it matches + missing skills) | **C** | 🟡 High | 3 |
-| Interview question generation via Gemini | **C** | 🔴 Critical | 5 |
-| Answer evaluation + scoring via Gemini | **C** | 🔴 Critical | 5 |
-| Follow-up questions logic | **C** | 🟢 Medium | 3 |
-| Interview APIs: session management, Q&A flow, reports | **B** | 🔴 Critical | 5 |
-| Database: `InterviewSessions`, `InterviewQuestions`, `InterviewResponses`, `InterviewReports` | **B** | 🔴 Critical | 3 |
-| Job Matching API: `GET /api/jobs/matched` | **B** | 🔴 Critical | 3 |
-| Missing skills → course recommendations logic | **B** | 🟡 High | 3 |
-| Lever API integration (additional job source) | **B** | 🟢 Medium | 3 |
-| Frontend: Job cards مع match score + match breakdown | **A** | 🔴 Critical | 5 |
-| Frontend: Interview Setup page (field, difficulty, type, count) | **A** | 🔴 Critical | 3 |
-| Frontend: Interview Q&A flow page | **A** | 🔴 Critical | 5 |
-| Frontend: Interview Report page | **A** | 🔴 Critical | 5 |
-| Frontend: Interview History page | **A** | 🟡 High | 3 |
-| Frontend: My Applications page | **A** | 🟢 Medium | 3 |
+| Task | Category | Priority | Story Points |
+|------|----------|----------|-------------|
+| Skill Matching Algorithm (CV skills vs job requirements) — 40% weight | **AI & Matching** | 🔴 Critical | 5 |
+| Experience & Projects scoring — 25% weight | **AI & Matching** | 🔴 Critical | 3 |
+| Semantic Similarity (Sentence Transformers) — 20% weight | **AI & Matching** | 🟡 High | 5 |
+| Education & Eligibility matching — 15% weight | **AI & Matching** | 🟡 High | 2 |
+| Match explanation via Gemini (why it matches + missing skills) | **AI & Matching** | 🟡 High | 3 |
+| Interview question generation via Gemini | **AI Simulator** | 🔴 Critical | 5 |
+| Answer evaluation + scoring via Gemini | **AI Simulator** | 🔴 Critical | 5 |
+| Follow-up questions logic | **AI Simulator** | 🟢 Medium | 3 |
+| Interview APIs: session management, Q&A flow, reports | **Backend** | 🔴 Critical | 5 |
+| Database: `InterviewSessions`, `InterviewQuestions`, `InterviewResponses`, `InterviewReports` | **Backend** | 🔴 Critical | 3 |
+| Job Matching API: `GET /api/jobs/matched` | **Backend** | 🔴 Critical | 3 |
+| Missing skills → course recommendations logic | **Backend** | 🟡 High | 3 |
+| Lever API integration (additional job source) | **Data Pipeline** | 🟢 Medium | 3 |
+| Frontend: Job cards مع match score + match breakdown | **Frontend** | 🔴 Critical | 5 |
+| Frontend: Interview Setup page (field, difficulty, type, count) | **Frontend** | 🔴 Critical | 3 |
+| Frontend: Interview Q&A flow page | **Frontend** | 🔴 Critical | 5 |
+| Frontend: Interview Report page | **Frontend** | 🔴 Critical | 5 |
+| Frontend: Interview History page | **Frontend** | 🟡 High | 3 |
+| Frontend: My Applications page | **Frontend** | 🟢 Medium | 3 |
 
 ```
 ┌─────────────────────────────────────────────────┐
@@ -414,38 +412,38 @@ flowchart TD
 ### Sprint Goal
 > تسليم مشروع مستقر، متختبر، deployed، وموثق بالكامل.
 
-| Task | Owner | Priority | Story Points |
-|------|-------|----------|-------------|
+| Task | Category | Priority | Story Points |
+|------|----------|----------|-------------|
 | **Testing** | | | |
-| Unit tests: Auth, Course, Resume services | **B** | 🔴 Critical | 5 |
-| Unit tests: Job aggregation, matching engine | **C** | 🔴 Critical | 5 |
-| API integration tests (Postman collection) | **B** | 🔴 Critical | 3 |
-| AI output validation tests (Gemini responses) | **C** | 🔴 Critical | 3 |
-| Security tests: data isolation, JWT, file access, API key safety | **B** | 🔴 Critical | 3 |
-| Edge cases: empty CV, malformed files, Gemini failures, rate limits | **C** | 🟡 High | 3 |
-| Frontend testing: user flows, error states | **A** | 🟡 High | 3 |
+| Unit tests: Auth, Course, Resume services | **Backend** | 🔴 Critical | 5 |
+| Unit tests: Job aggregation, matching engine | **AI & Backend** | 🔴 Critical | 5 |
+| API integration tests (Postman collection) | **Backend** | 🔴 Critical | 3 |
+| AI output validation tests (Gemini responses) | **AI Testing** | 🔴 Critical | 3 |
+| Security tests: data isolation, JWT, file access, API key safety | **Security** | 🔴 Critical | 3 |
+| Edge cases: empty CV, malformed files, Gemini failures, rate limits | **AI & Backend** | 🟡 High | 3 |
+| Frontend testing: user flows, error states | **Frontend** | 🟡 High | 3 |
 | **Bug Fixing** | | | |
-| Fix all critical bugs from testing | **Team** | 🔴 Critical | 5 |
+| Fix all critical bugs from testing | **Full Stack** | 🔴 Critical | 5 |
 | **UI Polish** | | | |
-| Responsive design verification | **A** | 🔴 Critical | 3 |
-| Loading states, error messages, empty states | **A** | 🟡 High | 3 |
-| Dashboard: recommended jobs, courses, interview stats | **A** | 🟡 High | 3 |
+| Responsive design verification | **Frontend** | 🔴 Critical | 3 |
+| Loading states, error messages, empty states | **Frontend** | 🟡 High | 3 |
+| Dashboard: recommended jobs, courses, interview stats | **Frontend** | 🟡 High | 3 |
 | **Deployment** | | | |
-| Frontend deploy (Vercel / Netlify) | **A** | 🔴 Critical | 2 |
-| Backend deploy (Railway / Render) | **B** | 🔴 Critical | 3 |
-| PostgreSQL cloud instance (Supabase / Neon) | **B** | 🔴 Critical | 2 |
-| Production `.env`, CORS, rate limiting | **B** | 🔴 Critical | 2 |
+| Frontend deploy (Vercel / Netlify / Cloudflare) | **DevOps** | 🔴 Critical | 2 |
+| Backend deploy (Railway / Render) | **DevOps** | 🔴 Critical | 3 |
+| PostgreSQL cloud instance (Supabase / Neon) | **DevOps** | 🔴 Critical | 2 |
+| Production `.env`, CORS, rate limiting | **DevOps** | 🔴 Critical | 2 |
 | **Documentation** | | | |
-| API docs (Swagger auto-generated) | **B** | 🟡 High | 1 |
-| README + setup guide | **Team** | 🟡 High | 2 |
+| API docs (Swagger auto-generated) | **Docs** | 🟡 High | 1 |
+| README + setup guide | **Docs** | 🟡 High | 2 |
 | **Demo** | | | |
-| Demo script + sample data preparation | **Team** | 🔴 Critical | 3 |
-| Final project demo | **Team** | 🔴 Critical | — |
+| Demo script + sample data preparation | **General** | 🔴 Critical | 3 |
+| Final project demo | **General** | 🔴 Critical | — |
 
 ```mermaid
 flowchart LR
     subgraph Frontend["Frontend Deployment"]
-        R["React Build"] --> V["Vercel / Netlify"]
+        R["Static Web App / SPA"] --> V["Vercel / Netlify / Cloudflare Pages"]
     end
 
     subgraph Backend["Backend Deployment"]
@@ -503,10 +501,10 @@ flowchart LR
 
 ---
 
-## 👥 Member Responsibilities per Sprint
+## 📋 Deliverables & Focus per Sprint
 
-| Sprint | Member A (Frontend) | Member B (Backend) | Member C (AI/Integration) |
-|--------|--------------------|--------------------|--------------------------|
+| Sprint | Frontend Deliverables | Backend & Database Deliverables | AI & Data Integration Deliverables |
+|--------|----------------------|--------------------------------|-----------------------------------|
 | **S1** | Auth UI, Layout, Wireframes | Project setup, DB, Auth system | Course data sources, Gemini setup |
 | **S2** | Course pages, Resume UI, Dashboard | Course APIs, Resume upload, Filters | Course integration, Gemini service layer, Job DB prep |
 | **S3** | CV review page, Job pages, AI search UI | Job aggregator, Job APIs, Save/Apply | Gemini CV parser, AI search, Adzuna + Greenhouse |
@@ -523,7 +521,7 @@ flowchart LR
 | **Gemini API rate limits** | يوقف AI features | Cache responses, minimize calls, fallback messages |
 | **Job API data quality** | بيانات ناقصة/مكررة | Validation + dedup pipeline |
 | **CV parsing accuracy** | بيانات غلط في matching | User review/edit step + Pydantic validation |
-| **3 أعضاء بس** | ضغط على كل واحد | توزيع واضح + daily standup لحل الـ blockers بسرعة |
+| **ضغط المهام والتسليم** | ضيق الوقت | التركيز على الـ Core Features الأساسية وحل الـ blockers أولاً بأول |
 | **API key exposure** | Security breach | `.env` files, server-side only, never in frontend |
 
 > [!CAUTION]
