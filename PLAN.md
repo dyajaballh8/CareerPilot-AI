@@ -18,9 +18,9 @@
 
 ```mermaid
 flowchart LR
-    P1["Phase 1\nFoundation\nSprints 1-2"]
-    P2["Phase 2\nAI Intelligence\nSprints 3-4"]
-    P3["Phase 3\nPolish & Launch\nSprint 5"]
+    P1["Phase 1<br/>Foundation<br/>Sprints 1-2"]
+    P2["Phase 2<br/>AI Intelligence<br/>Sprints 3-4"]
+    P3["Phase 3<br/>Polish and Launch<br/>Sprint 5"]
 
     P1 -->|"أسبوعين"| P2 -->|"أسبوعين"| P3 -->|"أسبوع"| LAUNCH["🚀 Launch"]
 
@@ -49,11 +49,11 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    MP["Sprint Planning\n(كل Monday)"]
-    DS["Daily Standup\n(15 min يومياً)"]
-    DEV["Development\n(طول الأسبوع)"]
-    SR["Sprint Review\n(كل Friday)"]
-    RT["Retrospective\n(كل Friday)"]
+    MP["Sprint Planning<br/>(كل Monday)"]
+    DS["Daily Standup<br/>(15 min يومياً)"]
+    DEV["Development<br/>(طول الأسبوع)"]
+    SR["Sprint Review<br/>(كل Friday)"]
+    RT["Retrospective<br/>(كل Friday)"]
 
     MP --> DEV
     DEV --> DS
@@ -204,11 +204,11 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A["✅ Auth System"] --> E["Phase 1\nComplete"]
+    A["✅ Auth System"] --> E["Phase 1<br/>Complete"]
     B["✅ Course Explorer"] --> E
     C["✅ Resume Upload"] --> E
     D["✅ Basic Dashboard"] --> E
-    E --> F["Ready for Phase 2:\nAI Integration"]
+    E --> F["Ready for Phase 2:<br/>AI Integration"]
 
     style E fill:#1e3a5f,stroke:#4a90d9,color:#fff
     style F fill:#2d5a27,stroke:#6abf69,color:#fff
@@ -257,14 +257,14 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A["Adzuna API"] --> AGG["Job Aggregator\nService"]
+    A["Adzuna API"] --> AGG["Job Aggregator<br/>Service"]
     B["Greenhouse API"] --> AGG
     C["Lever API"] --> AGG
     D["Career Page Links"] --> AGG
 
     AGG --> N["Data Normalization"]
     N --> DD["Duplicate Detection"]
-    DD --> DB["PostgreSQL\n(Jobs Table)"]
+    DD --> DB["PostgreSQL<br/>Jobs Table"]
 
     style AGG fill:#2d5a27,stroke:#6abf69,color:#fff
     style DB fill:#1e3a5f,stroke:#4a90d9,color:#fff
@@ -286,9 +286,9 @@ sequenceDiagram
     B->>B: Validate (Pydantic)
     B->>DB: Save extracted data
     B-->>F: Parsed CV data
-    F-->>U: Review & Edit
+    F-->>U: Review and Edit
     U->>F: Confirm
-    F->>B: PUT /api/resumes/{id}/confirm
+    F->>B: PUT /api/resumes/id/confirm
     B->>DB: Save final version
 ```
 
@@ -354,7 +354,7 @@ sequenceDiagram
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Configure: User selects field & difficulty
+    [*] --> Configure: User selects field and difficulty
     Configure --> InProgress: Start Interview
     InProgress --> QuestionAsked: Gemini generates Q
     QuestionAsked --> AnswerSubmitted: User types answer
@@ -381,12 +381,12 @@ stateDiagram-v2
 
 ```mermaid
 flowchart TD
-    A["✅ Gemini CV Analysis"] --> F["Phase 2\nComplete"]
+    A["✅ Gemini CV Analysis"] --> F["Phase 2<br/>Complete"]
     B["✅ Job Aggregation"] --> F
     C["✅ AI Job Matching"] --> F
     D["✅ Interview Simulator"] --> F
     E["✅ AI Course Search"] --> F
-    F --> G["Ready for Phase 3:\nPolish & Launch"]
+    F --> G["Ready for Phase 3:<br/>Polish and Launch"]
 
     style F fill:#2d5a27,stroke:#6abf69,color:#fff
     style G fill:#5a2d27,stroke:#d94a4a,color:#fff
@@ -460,11 +460,11 @@ flowchart LR
         C["Course APIs"]
     end
 
-    V <--> RW
-    RW <--> SP
-    RW <--> G
-    RW <--> J
-    RW <--> C
+    V --> RW
+    RW --> SP
+    RW --> G
+    RW --> J
+    RW --> C
 ```
 
 ### Testing Coverage
@@ -534,19 +534,19 @@ flowchart LR
 ```mermaid
 flowchart LR
     subgraph W1["Week 1 — Sprint 1"]
-        W1A["Setup + Auth + DB\n+ Wireframes"]
+        W1A["Setup + Auth + DB<br/>+ Wireframes"]
     end
     subgraph W2["Week 2 — Sprint 2"]
-        W2A["Course Explorer\n+ Resume Upload\n+ Dashboard"]
+        W2A["Course Explorer<br/>+ Resume Upload<br/>+ Dashboard"]
     end
     subgraph W3["Week 3 — Sprint 3"]
-        W3A["Gemini CV Parser\n+ Job Aggregation\n+ AI Search"]
+        W3A["Gemini CV Parser<br/>+ Job Aggregation<br/>+ AI Search"]
     end
     subgraph W4["Week 4 — Sprint 4"]
-        W4A["AI Matching\n+ Interview Simulator"]
+        W4A["AI Matching<br/>+ Interview Simulator"]
     end
     subgraph W5["Week 5 — Sprint 5"]
-        W5A["Testing + Deploy\n+ Docs + Demo"]
+        W5A["Testing + Deploy<br/>+ Docs + Demo"]
     end
 
     W1 --> W2 --> W3 --> W4 --> W5 --> DONE["🚀 LAUNCH"]
