@@ -10,7 +10,7 @@
 | Item | Details |
 |------|---------|
 | **Deadline** | 5 أسابيع (شهر وأسبوع) |
-| **Architecture** | Full-Stack AI Platform (FastAPI + SPA + Gemini) |
+| **Architecture** | Full-Stack AI Platform (FastAPI + SPA + AI Assistant) |
 | **Methodology** | Agile — Weekly Sprints |
 | **Sprint Duration** | أسبوع واحد لكل Sprint |
 | **Total Sprints** | 5 Sprints |
@@ -38,7 +38,7 @@ flowchart LR
 |-------|-----------|----------------------|
 | **Frontend Layer** | **Single Page App (SPA)** | Modern JavaScript, HTML5/CSS3, UI/UX, interactive views, responsive design |
 | **Backend Layer** | **FastAPI Services** | REST APIs, PostgreSQL & SQLAlchemy models, Auth & JWT, file storage, deployment |
-| **AI & Integration** | **Gemini & Data Pipeline** | Gemini API, CV parsing, job matching engine, interview simulator, external APIs (Adzuna, Coursera, Udemy, etc.) |
+| **AI & Integration** | **AI Assistant & Data Pipeline** | AI Assistant API, CV parsing, job matching engine, interview simulator, external APIs (Adzuna, Coursera, Udemy, etc.) |
 
 > [!IMPORTANT]
 > الربط بين الطبقات المختلفة يتم عبر **API Contracts** موحدة وثابتة تضمن التكامل السلس بين الواجهة والباك إند وخدمات الذكاء الاصطناعي.
@@ -96,7 +96,7 @@ flowchart TD
 │   │   │   ├── courses/
 │   │   │   ├── jobs/
 │   │   │   ├── interviews/
-│   │   │   └── ai/       # Gemini integration
+│   │   │   └── ai/       # AI Assistant integration
 │   │   └── utils/
 │   ├── migrations/       # Alembic
 │   └── requirements.txt
@@ -132,7 +132,7 @@ flowchart TD
 | Frontend: Sidebar layout + Dashboard skeleton | **Frontend** | 🟡 High | 3 |
 | Course data source research + API keys setup | **Data Pipeline** | 🟡 High | 3 |
 | Course API integration (fetch + normalize + store) | **Data Pipeline** | 🟡 High | 5 |
-| Gemini API key setup + basic service layer scaffold | **AI & Integration** | 🟢 Medium | 2 |
+| AI Assistant API key setup + basic service layer scaffold | **AI & Integration** | 🟢 Medium | 2 |
 
 ```mermaid
 sequenceDiagram
@@ -185,7 +185,7 @@ sequenceDiagram
 | Frontend: Dashboard page (welcome, profile info, resume status) | **Frontend** | 🟡 High | 3 |
 | Frontend: Saved Courses page | **Frontend** | 🟢 Medium | 2 |
 | Course data: add more sources + data normalization pipeline | **Data Pipeline** | 🟡 High | 5 |
-| Gemini service layer: error handling, rate limiting, retry logic | **AI & Integration** | 🟡 High | 5 |
+| AI Assistant service layer: error handling, rate limiting, retry logic | **AI & Integration** | 🟡 High | 5 |
 | Database models for Phase 2 prep: `Jobs`, `JobSkills`, `JobSources` | **Backend** | 🟢 Medium | 3 |
 
 > [!NOTE]
@@ -195,7 +195,7 @@ sequenceDiagram
 - [x] Course Explorer شغال بالكامل (search + filters + details + save)
 - [x] CV upload شغال (PDF + DOCX) مع text extraction
 - [x] Dashboard أساسي بيعرض بيانات المستخدم
-- [x] Gemini service layer جاهز للاستخدام في Phase 2
+- [x] AI Assistant service layer جاهز للاستخدام في Phase 2
 - [x] كورسات من مصادر متعددة متخزنة في الـ DB
 
 ---
@@ -227,22 +227,22 @@ flowchart TD
 ## 📅 Sprints 3–4 (أسبوعين)
 
 > [!IMPORTANT]
-> Phase 2 هي قلب المشروع — هنا بندخل Gemini في كل حاجة وبنبني الـ Features اللي بتميز CareerPilot.
+> Phase 2 هي قلب المشروع — هنا بندخل AI Assistant في كل حاجة وبنبني الـ Features اللي بتميز CareerPilot.
 
 ---
 
-## Sprint 3 — Gemini CV Analysis + Job Aggregation
+## Sprint 3 — AI Assistant CV Analysis + Job Aggregation
 ### 📅 Week 3
 
 ### Sprint Goal
-> تشغيل Gemini لتحليل الـ CV + تجميع الوظائف من APIs متعددة + بداية AI Course Search.
+> تشغيل AI Assistant لتحليل الـ CV + تجميع الوظائف من APIs متعددة + بداية AI Course Search.
 
 | Task | Category | Priority | Story Points |
 |------|----------|----------|-------------|
-| AI CV Parser: إرسال CV text لـ Gemini → structured JSON | **AI & Integration** | 🔴 Critical | 5 |
-| Pydantic validation لـ Gemini CV output | **AI & Integration** | 🔴 Critical | 3 |
-| AI Natural Language Course Search (Gemini → filters → search) | **AI & Integration** | 🟡 High | 5 |
-| Course summarization + skills extraction via Gemini | **AI & Integration** | 🟢 Medium | 3 |
+| AI CV Parser: إرسال CV text لـ AI Assistant → structured JSON | **AI & Integration** | 🔴 Critical | 5 |
+| Pydantic validation لـ AI Assistant CV output | **AI & Integration** | 🔴 Critical | 3 |
+| AI Natural Language Course Search (AI Assistant → filters → search) | **AI & Integration** | 🟡 High | 5 |
+| Course summarization + skills extraction via AI Assistant | **AI & Integration** | 🟢 Medium | 3 |
 | Adzuna API integration (job search) | **Data Pipeline** | 🔴 Critical | 5 |
 | Greenhouse Job Board API integration | **Data Pipeline** | 🟡 High | 3 |
 | Job Aggregator service: fetch → normalize → deduplicate → store | **Backend** | 🔴 Critical | 5 |
@@ -275,7 +275,7 @@ sequenceDiagram
     participant U as User
     participant F as Frontend
     participant B as Backend
-    participant G as Gemini API
+    participant G as AI Assistant API
     participant DB as PostgreSQL
 
     U->>F: Upload CV
@@ -293,7 +293,7 @@ sequenceDiagram
 ```
 
 ### Sprint 3 — Definition of Done
-- [x] Gemini CV parsing شغال ومتحقق منه
+- [x] AI Assistant CV parsing شغال ومتحقق منه
 - [x] User review/edit flow للـ CV data
 - [x] وظائف بتتجمع من Adzuna + Greenhouse على الأقل
 - [x] Job search مع filters شغال
@@ -313,9 +313,9 @@ sequenceDiagram
 | Experience & Projects scoring — 25% weight | **AI & Matching** | 🔴 Critical | 3 |
 | Semantic Similarity (Sentence Transformers) — 20% weight | **AI & Matching** | 🟡 High | 5 |
 | Education & Eligibility matching — 15% weight | **AI & Matching** | 🟡 High | 2 |
-| Match explanation via Gemini (why it matches + missing skills) | **AI & Matching** | 🟡 High | 3 |
-| Interview question generation via Gemini | **AI Simulator** | 🔴 Critical | 5 |
-| Answer evaluation + scoring via Gemini | **AI Simulator** | 🔴 Critical | 5 |
+| Match explanation via AI Assistant (why it matches + missing skills) | **AI & Matching** | 🟡 High | 3 |
+| Interview question generation via AI Assistant | **AI Simulator** | 🔴 Critical | 5 |
+| Answer evaluation + scoring via AI Assistant | **AI Simulator** | 🔴 Critical | 5 |
 | Follow-up questions logic | **AI Simulator** | 🟢 Medium | 3 |
 | Interview APIs: session management, Q&A flow, reports | **Backend** | 🔴 Critical | 5 |
 | Database: `InterviewSessions`, `InterviewQuestions`, `InterviewResponses`, `InterviewReports` | **Backend** | 🔴 Critical | 3 |
@@ -356,9 +356,9 @@ sequenceDiagram
 stateDiagram-v2
     [*] --> Configure: User selects field and difficulty
     Configure --> InProgress: Start Interview
-    InProgress --> QuestionAsked: Gemini generates Q
+    InProgress --> QuestionAsked: AI Assistant generates Q
     QuestionAsked --> AnswerSubmitted: User types answer
-    AnswerSubmitted --> Evaluated: Gemini evaluates
+    AnswerSubmitted --> Evaluated: AI Assistant evaluates
     Evaluated --> FollowUp: Follow-up needed?
     FollowUp --> QuestionAsked: Yes
     Evaluated --> NextQuestion: No
@@ -381,7 +381,7 @@ stateDiagram-v2
 
 ```mermaid
 flowchart TD
-    A["✅ Gemini CV Analysis"] --> F["Phase 2<br/>Complete"]
+    A["✅ AI Assistant CV Analysis"] --> F["Phase 2<br/>Complete"]
     B["✅ Job Aggregation"] --> F
     C["✅ AI Job Matching"] --> F
     D["✅ Interview Simulator"] --> F
@@ -394,7 +394,7 @@ flowchart TD
 
 **عند نهاية Phase 2:**
 - ✅ الـ 3 Features الأساسية شغالين بالكامل
-- ✅ Gemini متكامل مع CV parsing, course search, job matching, interviews
+- ✅ AI Assistant متكامل مع CV parsing, course search, job matching, interviews
 - ✅ Job Aggregator بيجمع وظائف من مصادر متعددة
 - ✅ المنصة functional — محتاجة testing و polish
 
@@ -418,9 +418,9 @@ flowchart TD
 | Unit tests: Auth, Course, Resume services | **Backend** | 🔴 Critical | 5 |
 | Unit tests: Job aggregation, matching engine | **AI & Backend** | 🔴 Critical | 5 |
 | API integration tests (Postman collection) | **Backend** | 🔴 Critical | 3 |
-| AI output validation tests (Gemini responses) | **AI Testing** | 🔴 Critical | 3 |
+| AI output validation tests (AI Assistant responses) | **AI Testing** | 🔴 Critical | 3 |
 | Security tests: data isolation, JWT, file access, API key safety | **Security** | 🔴 Critical | 3 |
-| Edge cases: empty CV, malformed files, Gemini failures, rate limits | **AI & Backend** | 🟡 High | 3 |
+| Edge cases: empty CV, malformed files, AI Assistant failures, rate limits | **AI & Backend** | 🟡 High | 3 |
 | Frontend testing: user flows, error states | **Frontend** | 🟡 High | 3 |
 | **Bug Fixing** | | | |
 | Fix all critical bugs from testing | **Full Stack** | 🔴 Critical | 5 |
@@ -455,7 +455,7 @@ flowchart LR
     end
 
     subgraph Services["External Services"]
-        G["Gemini API"]
+        G["AI Assistant API"]
         J["Job APIs"]
         C["Course APIs"]
     end
@@ -495,8 +495,8 @@ flowchart LR
 | **Sprints** | 1–2 | 3–4 | 5 |
 | **Duration** | أسبوعين | أسبوعين | أسبوع |
 | **Focus** | Foundation & Core | AI Intelligence | Polish & Launch |
-| **Key Deliverables** | Auth, DB, Course Explorer, Resume Upload, Dashboard | Gemini CV, Job Aggregation, AI Matching, Interviews | Testing, Deployment, Docs, Demo |
-| **AI Usage** | ❌ None | ✅ Full Gemini | 🔧 Validation only |
+| **Key Deliverables** | Auth, DB, Course Explorer, Resume Upload, Dashboard | AI Assistant CV, Job Aggregation, AI Matching, Interviews | Testing, Deployment, Docs, Demo |
+| **AI Usage** | ❌ None | ✅ Full AI Assistant | 🔧 Validation only |
 | **Risk** | Low | High | Medium |
 
 ---
@@ -505,9 +505,9 @@ flowchart LR
 
 | Sprint | Frontend Deliverables | Backend & Database Deliverables | AI & Data Integration Deliverables |
 |--------|----------------------|--------------------------------|-----------------------------------|
-| **S1** | Auth UI, Layout, Wireframes | Project setup, DB, Auth system | Course data sources, Gemini setup |
-| **S2** | Course pages, Resume UI, Dashboard | Course APIs, Resume upload, Filters | Course integration, Gemini service layer, Job DB prep |
-| **S3** | CV review page, Job pages, AI search UI | Job aggregator, Job APIs, Save/Apply | Gemini CV parser, AI search, Adzuna + Greenhouse |
+| **S1** | Auth UI, Layout, Wireframes | Project setup, DB, Auth system | Course data sources, AI Assistant setup |
+| **S2** | Course pages, Resume UI, Dashboard | Course APIs, Resume upload, Filters | Course integration, AI Assistant service layer, Job DB prep |
+| **S3** | CV review page, Job pages, AI search UI | Job aggregator, Job APIs, Save/Apply | AI Assistant CV parser, AI search, Adzuna + Greenhouse |
 | **S4** | Match UI, Interview pages, History | Interview APIs, Matching API, Lever | Matching engine, Interview AI, Follow-ups |
 | **S5** | UI polish, Responsive, Frontend deploy | Tests, Security, Backend deploy, Docs | AI tests, Edge cases, Bug fixes, Demo |
 
@@ -518,14 +518,14 @@ flowchart LR
 | Risk | Impact | Mitigation |
 |------|--------|------------|
 | **Timeline ضيق (5 أسابيع)** | Features ممكن متكملش | الأولوية للـ Core Features فقط. أي nice-to-have يتأجل |
-| **Gemini API rate limits** | يوقف AI features | Cache responses, minimize calls, fallback messages |
+| **AI Assistant API rate limits** | يوقف AI features | Cache responses, minimize calls, fallback messages |
 | **Job API data quality** | بيانات ناقصة/مكررة | Validation + dedup pipeline |
 | **CV parsing accuracy** | بيانات غلط في matching | User review/edit step + Pydantic validation |
 | **ضغط المهام والتسليم** | ضيق الوقت | التركيز على الـ Core Features الأساسية وحل الـ blockers أولاً بأول |
 | **API key exposure** | Security breach | `.env` files, server-side only, never in frontend |
 
 > [!CAUTION]
-> **بيانات الـ CV**: خلال التطوير، استخدموا CVs تجريبية. لا ترسلوا CVs حقيقية لـ Gemini Free Tier في production بدون مراجعة سياسات الخصوصية.
+> **بيانات الـ CV**: خلال التطوير، استخدموا CVs تجريبية. لا ترسلوا CVs حقيقية لـ AI Assistant Free Tier في production بدون مراجعة سياسات الخصوصية.
 
 ---
 
@@ -540,7 +540,7 @@ flowchart LR
         W2A["Course Explorer<br/>+ Resume Upload<br/>+ Dashboard"]
     end
     subgraph W3["Week 3 — Sprint 3"]
-        W3A["Gemini CV Parser<br/>+ Job Aggregation<br/>+ AI Search"]
+        W3A["AI Assistant CV Parser<br/>+ Job Aggregation<br/>+ AI Search"]
     end
     subgraph W4["Week 4 — Sprint 4"]
         W4A["AI Matching<br/>+ Interview Simulator"]

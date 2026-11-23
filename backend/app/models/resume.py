@@ -18,6 +18,7 @@ class Resume(Base):
     mime_type: Mapped[str] = mapped_column(String(120))
     size_bytes: Mapped[int] = mapped_column(Integer)
     extracted_text: Mapped[str] = mapped_column(Text, default="")
+    parsed_json: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime, default=lambda: datetime.now(timezone.utc)
     )

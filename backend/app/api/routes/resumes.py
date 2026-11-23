@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import io
-
+import json
+import logging
 from pathlib import Path
 from uuid import uuid4
 from fastapi import APIRouter, HTTPException, UploadFile, status
@@ -9,8 +10,12 @@ from sqlalchemy import select
 
 from app.api.deps import CurrentUser, DB
 from app.models.resume import Resume
-from app.schemas.resume import ResumeOut
+from app.models.skill import ResumeSkill, Skill
+from app.schemas.resume import ParsedResumeData, ResumeOut, ResumeSkillsUpdate
+from app.services.ai.gemini_service import GeminiService
 from app.services.storage import delete as storage_delete, put_bytes
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/resumes", tags=["resumes"])
 
@@ -48,7 +53,44 @@ def _extract_text(content: bytes, extension: str) -> str:
         return ""
 
 
+def _save_resume_skills(db: DB, resume: Resume, skills: list[str]) -> None:
+    """Synchronize extracted skills into Skill and ResumeSkill tables."""
+    # Clear existing resume skills
+    db.execute(
+        ResumeSkill.__table__.delete().where(ResumeSkill.resume_id == resume.id)
+    )
+
+    for skill_name in skills:
+        norm = skill_name.strip()
+        if not norm:
+            continue
+        sk = db.execute(select(Skill).where(Skill.name.ilike(norm))).scalar_one_or_none()
+        if not sk:
+            sk = Skill(name=norm)
+            db.add(sk)
+            db.flush()
+        
+        # Link to resume
+        rs = ResumeSkill(resume_id=resume.id, skill_id=sk.id, confidence=0.95)
+        db.add(rs)
+
+
 def _resume_out(resume: Resume) -> ResumeOut:
+    parsed_obj: ParsedResumeData | None = None
+    skills_list: list[str] = []
+
+    if resume.parsed_json:
+        try:
+            pdata = json.loads(resume.parsed_json)
+            parsed_obj = ParsedResumeData(**pdata)
+            skills_list = pdata.get("skills", [])
+        except Exception as e:
+            logger.warning("Error parsing stored resume json: %s", e)
+
+    # Fallback skills from relations if parsed_json did not provide
+    if not skills_list and resume.skills:
+        skills_list = [rs.skill.name for rs in resume.skills if rs.skill and rs.skill.name]
+
     return ResumeOut(
         id=resume.id,
         original_filename=resume.original_filename,
@@ -56,6 +98,8 @@ def _resume_out(resume: Resume) -> ResumeOut:
         size_bytes=resume.size_bytes,
         extracted_characters=len(resume.extracted_text or ""),
         created_at=resume.created_at,
+        skills=skills_list,
+        parsed_data=parsed_obj,
     )
 
 
@@ -85,6 +129,11 @@ async def upload_resume(file: UploadFile, db: DB, user: CurrentUser):
 
     extracted = _extract_text(content, extension)
 
+    # AI Parsing with Gemini (or resilient NLP fallback)
+    gemini = GeminiService()
+    parsed_dict = gemini.analyze_resume(extracted)
+    parsed_json_str = json.dumps(parsed_dict)
+
     # Remove any previous resume for this user
     prev_resumes = db.execute(select(Resume).where(Resume.user_id == user.id)).scalars().all()
     for prev in prev_resumes:
@@ -101,8 +150,15 @@ async def upload_resume(file: UploadFile, db: DB, user: CurrentUser):
         mime_type=mime_type,
         size_bytes=len(content),
         extracted_text=extracted,
+        parsed_json=parsed_json_str,
     )
     db.add(resume)
+    db.commit()
+    db.refresh(resume)
+
+    # Store extracted skills in resume_skills
+    extracted_skills = parsed_dict.get("skills", [])
+    _save_resume_skills(db, resume, extracted_skills)
     db.commit()
     db.refresh(resume)
 
@@ -116,6 +172,52 @@ def get_latest_resume(db: DB, user: CurrentUser):
     ).scalars().first()
     if not resume:
         return None
+    return _resume_out(resume)
+
+
+@router.post("/reanalyze", response_model=ResumeOut)
+def reanalyze_latest_resume(db: DB, user: CurrentUser):
+    """Re-run AI analysis on the currently uploaded resume."""
+    resume = db.execute(
+        select(Resume).where(Resume.user_id == user.id).order_by(Resume.created_at.desc())
+    ).scalars().first()
+    if not resume:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No resume uploaded yet")
+
+    gemini = GeminiService()
+    parsed_dict = gemini.analyze_resume(resume.extracted_text)
+    resume.parsed_json = json.dumps(parsed_dict)
+    
+    _save_resume_skills(db, resume, parsed_dict.get("skills", []))
+    db.commit()
+    db.refresh(resume)
+
+    return _resume_out(resume)
+
+
+@router.put("/skills", response_model=ResumeOut)
+def update_resume_skills(body: ResumeSkillsUpdate, db: DB, user: CurrentUser):
+    """Allow user to add, edit or confirm skills extracted from their resume."""
+    resume = db.execute(
+        select(Resume).where(Resume.user_id == user.id).order_by(Resume.created_at.desc())
+    ).scalars().first()
+    if not resume:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No resume found")
+
+    # Update parsed_json
+    pdata = {}
+    if resume.parsed_json:
+        try:
+            pdata = json.loads(resume.parsed_json)
+        except Exception:
+            pass
+    pdata["skills"] = body.skills
+    resume.parsed_json = json.dumps(pdata)
+
+    _save_resume_skills(db, resume, body.skills)
+    db.commit()
+    db.refresh(resume)
+
     return _resume_out(resume)
 
 

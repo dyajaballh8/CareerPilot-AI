@@ -309,6 +309,10 @@ async def lifespan(app: FastAPI):
                         )
                     )
             db.commit()
+
+            # Seed curated tech jobs & internships
+            from app.services.jobs.aggregator import JobAggregatorService
+            JobAggregatorService(db).sync_curated_seed_jobs()
     yield
 
 

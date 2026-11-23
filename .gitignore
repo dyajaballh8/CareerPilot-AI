@@ -62,6 +62,7 @@ logs/
 # ===========================
 backend/uploads/
 uploads/
+storage/
 
 # ===========================
 # Testing

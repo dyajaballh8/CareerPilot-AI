@@ -12,18 +12,18 @@ An intelligent platform that helps university students and fresh graduates devel
 
 ### 1. 📚 Course Explorer
 - Search for courses across multiple platforms
-- AI-powered natural language search (Gemini)
+- AI-powered natural language search (AI Assistant)
 - Advanced filters: Category, Level, Price, Platform, Duration, Language
 - Save & bookmark courses
 
 ### 2. 💼 AI Job & Internship Finder
 - Aggregates jobs from multiple APIs (Adzuna, Greenhouse, Lever) and company career pages
-- Upload & parse CV with AI (Gemini)
+- Upload & parse CV with AI (AI Assistant)
 - AI-powered job matching with match score & explanation
 - Identifies missing skills and recommends courses
 
 ### 3. 🎯 AI Interview Simulator
-- Practice technical & HR interviews with Gemini AI
+- Practice technical & HR interviews with AI Assistant
 - Configurable: field, difficulty, type, question count
 - Real-time answer evaluation & scoring
 - Follow-up questions & detailed feedback reports
@@ -38,7 +38,7 @@ An intelligent platform that helps university students and fresh graduates devel
 | Backend | Python + FastAPI |
 | Database | PostgreSQL + SQLAlchemy |
 | Authentication | JWT (Access + Refresh Tokens) |
-| AI Model | Google Gemini API |
+| AI Model | AI Assistant API (AI Assistant-compatible) |
 | CV Parsing | PyMuPDF + python-docx |
 | ML Matching | Scikit-learn + Sentence Transformers |
 | Testing | Pytest + Postman |
@@ -77,7 +77,7 @@ CareerPilot AI/
 │   │   ├── models/          # SQLAlchemy database models
 │   │   ├── schemas/         # Pydantic request/response schemas
 │   │   ├── services/        # Business logic
-│   │   │   ├── ai/          # Gemini API integration
+│   │   │   ├── ai/          # AI Assistant API integration
 │   │   │   ├── auth/        # Authentication logic
 │   │   │   ├── courses/     # Course search & management
 │   │   │   ├── interviews/  # Interview simulator logic
@@ -100,7 +100,7 @@ CareerPilot AI/
 - Python 3.11+
 - Node.js 18+
 - PostgreSQL 15+
-- Google Gemini API Key
+- AI Assistant API (AI Assistant-compatible) Key
 
 ### Backend Setup
 ```bash

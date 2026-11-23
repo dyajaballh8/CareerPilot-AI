@@ -326,3 +326,486 @@ button { cursor: pointer; border: 0; }
   box-shadow: 0 0 15px rgba(78, 122, 102, 0.35) !important;
   transition: outline 0.2s ease, box-shadow 0.2s ease;
 }
+
+
+/* ==========================================================================
+   Feature 2: AI Job & Internship Finder Styles
+   ========================================================================== */
+
+.job-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 18px;
+  margin-top: 16px;
+}
+
+.job-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid rgba(31, 40, 37, 0.08);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 18px rgba(31, 40, 37, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.job-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(31, 40, 37, 0.08);
+  border-color: rgba(31, 40, 37, 0.16);
+}
+
+.job-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.company-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.company-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--sage-deep);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  padding: 6px;
+  flex-shrink: 0;
+}
+
+.company-img-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.company-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.job-location {
+  font-size: 11px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.job-match-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+}
+
+.job-match-badge.high {
+  background: #d4f3e2;
+  color: #0d6e3c;
+  border: 1px solid #a3e6c0;
+}
+
+.job-match-badge.medium {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+
+.job-match-badge.fair {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.job-title {
+  margin: 6px 0 10px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.job-tags-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.job-type-pill {
+  padding: 4px 9px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  background: #f0eee8;
+  color: #4a544e;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.job-type-pill.internship {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.job-type-pill.job {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.job-type-pill.fulltime {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.job-type-pill.parttime {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.job-type-pill.remote {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.job-type-pill.hybrid {
+  background: #ffedd5;
+  color: #9a3412;
+}
+
+.job-type-pill.onsite {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.job-source-tag {
+  font-size: 10px;
+  color: var(--muted);
+  background: rgba(0, 0, 0, 0.04);
+  padding: 3px 7px;
+  border-radius: 4px;
+}
+
+.job-skills-preview {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin: 10px 0 16px;
+  min-height: 26px;
+}
+
+.skill-chip {
+  padding: 3px 8px;
+  border-radius: 99px;
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.skill-chip.matching {
+  background: #e7f7ed;
+  color: #1a753c;
+  border: 1px solid #b7e8c6;
+}
+
+.skill-chip.missing {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px dashed #fdba74;
+}
+
+.skill-chip.neutral {
+  background: #f2f1ec;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.job-card-footer {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.job-salary {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sage-deep);
+}
+
+.job-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* AI Resume & Matching Status Banner */
+.ai-match-banner {
+  padding: 18px 22px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #eef7f0 0%, #e6f0eb 100%);
+  border: 1px solid #c8e3cf;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.ai-match-banner h4 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #204b36;
+}
+
+.ai-match-banner p {
+  margin: 0;
+  font-size: 12.5px;
+  color: #4b6b59;
+}
+
+/* Tab selector */
+.tab-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  padding: 10px 18px;
+  border-radius: 99px;
+  font-size: 12.5px;
+  font-weight: 700;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.tab-btn.active {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+/* Detailed Match Modal styles */
+.match-overview-card {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #fbfaf6;
+  border: 1px solid var(--line);
+  margin-bottom: 20px;
+}
+
+.match-circle-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.match-big-score {
+  font-size: 42px;
+  font-weight: 800;
+  font-family: "Playfair Display", serif;
+  line-height: 1;
+  color: var(--sage-deep);
+}
+
+.match-score-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.match-bars-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  justify-content: center;
+}
+
+.match-bar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.match-bar-label-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.progress-track {
+  width: 100%;
+  height: 6px;
+  background: #e6e4dc;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: var(--sage-deep);
+}
+
+.ai-insights-box {
+  background: #f5f8f3;
+  border-left: 4px solid var(--sage-deep);
+  border-radius: 0 14px 14px 0;
+  padding: 16px 18px;
+  margin: 18px 0;
+}
+
+.ai-insights-box h4 {
+  margin: 0 0 8px;
+  font-size: 13.5px;
+  color: #1f3f2f;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ai-insights-box p {
+  margin: 0 0 10px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #3b5346;
+}
+
+.insights-bullet {
+  font-size: 12px;
+  color: #2e473a;
+  margin: 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Skills Matrix in Modal */
+.skills-matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.skills-matrix-col {
+  padding: 16px;
+  border-radius: 14px;
+  background: #fcfbf7;
+  border: 1px solid var(--line);
+}
+
+.skills-matrix-col h5 {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.skills-matrix-col.matching h5 { color: #166534; }
+.skills-matrix-col.missing h5 { color: #c2410c; }
+
+/* Bridge the Gap Course Cards in Modal */
+.bridge-gap-section {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.bridge-gap-section h4 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.recommended-course-mini {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  margin-bottom: 8px;
+}
+
+.recommended-course-info h5 {
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.recommended-course-info p {
+  margin: 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.recommended-course-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: #b45309;
+  background: #fef3c7;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+/* Parsed CV Profile Section */
+.parsed-cv-summary {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+}
+
+.parsed-skills-grid {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}

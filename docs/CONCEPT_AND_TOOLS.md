@@ -14,8 +14,8 @@
 ### 1.2 The Solution
 **CareerPilot AI** is an end-to-end intelligent career companion that consolidates the entire professional growth lifecycle into three interconnected core capabilities:
 - **Unified Course Explorer:** Aggregates and discovers hundreds of thousands of learning resources from top global providers (Coursera, Udemy, edX, MIT OCW, YouTube) through a clean, unified multi-platform interface.
-- **AI Job & Internship Finder:** Parses and analyzes user resumes (CVs) with Gemini AI, computes real-time Match Scores against live job and internship listings, identifies missing skills (Skill Gap Analysis), and recommends targeted courses to close those gaps.
-- **AI Interview Simulator:** Offers interactive, conversational technical and HR interview simulations with Gemini AI, evaluating answers in real time and generating detailed performance scorecards.
+- **AI Job & Internship Finder:** Parses and analyzes user resumes (CVs) with AI Assistant, computes real-time Match Scores against live job and internship listings, identifies missing skills (Skill Gap Analysis), and recommends targeted courses to close those gaps.
+- **AI Interview Simulator:** Offers interactive, conversational technical and HR interview simulations with AI Assistant, evaluating answers in real time and generating detailed performance scorecards.
 
 ---
 
@@ -32,8 +32,8 @@
 | Feature | Key Capabilities |
 | :--- | :--- |
 | **1. Course Explorer** | • Multi-platform course aggregation (Coursera, Udemy, edX, MIT OCW, YouTube)<br>• On-demand dynamic discovery for any topic or skill<br>• Advanced filtering by Category, Level, and Platform<br>• Save & bookmark favorite courses to personal learning list |
-| **2. AI Job & Internship Finder** | • Resume (CV) upload and structured AI parsing (Gemini AI)<br>• Aggregated listings from job APIs and career portals (Adzuna, Greenhouse, Lever)<br>• AI-powered job matching with percentage score and actionable explanation<br>• Automated skill gap identification with course recommendations |
-| **3. AI Interview Simulator** | • Interactive technical & HR mock interviews powered by Gemini AI<br>• Fully configurable: domain/role, difficulty, interview type, and question count<br>• Real-time answer evaluation with instant scoring<br>• Comprehensive feedback reports with strengths and improvement areas |
+| **2. AI Job & Internship Finder** | • Resume (CV) upload and structured AI parsing (AI Assistant)<br>• Aggregated listings from job APIs and career portals (Adzuna, Greenhouse, Lever)<br>• AI-powered job matching with percentage score and actionable explanation<br>• Automated skill gap identification with course recommendations |
+| **3. AI Interview Simulator** | • Interactive technical & HR mock interviews powered by AI Assistant<br>• Fully configurable: domain/role, difficulty, interview type, and question count<br>• Real-time answer evaluation with instant scoring<br>• Comprehensive feedback reports with strengths and improvement areas |
 
 ---
 
@@ -68,7 +68,7 @@
 ---
 
 ### 3.4 Artificial Intelligence & LLM Engine
-- **Primary AI Model:** **Google Gemini API** (`gemini-1.5-flash` / `gemini-1.5-pro`).
+- **Primary AI Model:** **AI Assistant API (AI Assistant-compatible)** (`gemini-1.5-flash` / `gemini-1.5-pro`).
 - **AI Responsibilities:**
   - Semantic resume information extraction (Skills, Experience, Education, Seniority).
   - Skill-to-Job matching and qualification gap analysis.
