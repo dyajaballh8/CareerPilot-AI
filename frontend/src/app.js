@@ -2282,7 +2282,7 @@ function overview() {
         <span class="eyebrow">Your next small step ✳</span>
         <h2>Make room for the work you want.</h2>
         <p>Explore practical courses across top platforms, keep your CV ready, and build skills that get you hired.</p>
-        <button class="btn btn-soft" data-nav="courses">Explore learning</button>
+        <button class="btn btn-primary" data-nav="courses">Explore learning &nbsp; ↗</button>
       </div>
     </section>
     <section class="stats">
