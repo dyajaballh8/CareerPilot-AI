@@ -2787,7 +2787,7 @@ function render() {
     console.error("Render error:", err);
     // Graceful fallback to prevent white blank page
     app.innerHTML = `
-      <div style="min-height:100vh;display:grid;place-items:center;padding:24px;background:#f5f3ee;font-family:sans-serif">
+      <div style="min-height:100vh;display:grid;place-items:center;padding:24px;background:#ffffff;font-family:sans-serif">
         <div style="background:#fff;padding:32px;border-radius:18px;max-width:480px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,0.06)">
           <div style="font-size:36px;margin-bottom:12px">🚀</div>
           <h2 style="margin:0 0 8px">CareerPilot AI Ready</h2>
